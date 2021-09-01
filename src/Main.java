@@ -3,12 +3,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int x=-1;
-        do {
-            obtenerDatos ();
-            System.out.println("Desea hacer algo mas?[1]Si [2]No");
-            x = validarMenu (2);
-        }while (x==1);
+        obtenerDatos ();
+        salir ();
     }
     public static void obtenerDatos(){
         double[][] sismos = new double[7][10];
@@ -19,9 +15,20 @@ public class Main {
     public static void llenarArreglo(double [][] arreglo){
         for (int i=0; i < arreglo.length; i++){
             for (int j = 0; j < arreglo[i].length; j++) {
-                arreglo[i][j] = (double) (Math.random () * 9 + 1);
+                arreglo[i][j] = (Math.random () * 9.9);
+                System.out.println ("["+arreglo[i][j]+"]");
             }
         }
+    }
+    public static double mostrarMayor(double [][] arreglo){
+        double mayor = 0;
+        for (int i=0; i < arreglo.length; i++) {
+            for (int j = 0; j < arreglo[i].length; j++) {
+                if(arreglo[i][j] > mayor){
+                    mayor = arreglo[i][j];
+                }
+            }
+        }return mayor;
     }
     public static void mostrarMenu (){
         System.out.println ("------------------------------------------");
@@ -32,24 +39,36 @@ public class Main {
         System.out.println ("5.  Salir (S/N)");
         System.out.println ("------------------------------------------");
     }
-    public static void switchesMenu(double [] arreglo){
+    public static void switchesMenu(double [][] arreglo){
         switch (validarMenu (5)){
             case 1:
                 System.out.println ("Se llenará la matriz.");
-                System.out.println (Arrays.toString (arreglo));
+                llenarArreglo (arreglo);
                 break;
             case 2:
                 System.out.println ("Los sismos de mayor magnitud son ");
+                System.out.println (mostrarMayor (arreglo));
                 break;
             case 3:
                 System.out.println ("Los sismos mayores o iguales a 5.0 son ");
                 break;
             case 4:
                 System.out.println ("");
+                break;
             case 5:
+                salir ();
                 System.out.println ("Programa finalizado");
         }
     }
+    public static void salir(){
+        int x=-1;
+        do {
+            obtenerDatos ();
+            System.out.println("Desea hacer algo mas?[1]Si [2]No");
+            x = validarMenu (2);
+        }while (x==1);
+    }
+
     //Metodo para validar int en switches.
     public static int validarMenu ( int x){
         int n = -1;

@@ -1,7 +1,5 @@
-import org.w3c.dom.ls.LSResourceResolver;
-
-import java.sql.SQLOutput;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,23 +11,32 @@ public class Main {
         }while (x==1);
     }
     public static void obtenerDatos(){
-        Scanner sc = new Scanner(System.in);
-
+        double[][] sismos = new double[7][10];
+        mostrarMenu ();
+        switchesMenu (sismos);
     }
-    public static void llenarArreglo(){
 
+    public static void llenarArreglo(double [][] arreglo){
+        for (int i=0; i < arreglo.length; i++){
+            for (int j = 0; j < arreglo[i].length; j++) {
+                arreglo[i][j] = (double) (Math.random () * 9 + 1);
+            }
+        }
     }
-    public static mostrarMenu (){
+    public static void mostrarMenu (){
+        System.out.println ("------------------------------------------");
         System.out.println ("1. Ingresar datos");
         System.out.println ("2. Mostrar sismo de mayor magnitud");
         System.out.println ("3. Contar sismos mayores o iguales a 5.0");
         System.out.println ("4. Enviar SMS por cada sismo mayor o igual a 7.0");
         System.out.println ("5.  Salir (S/N)");
+        System.out.println ("------------------------------------------");
     }
-    public static void switchesMenu(int [] arreglo){
+    public static void switchesMenu(double [] arreglo){
         switch (validarMenu (5)){
             case 1:
-                System.out.println ("Ingrese sus datos.");
+                System.out.println ("Se llenará la matriz.");
+                System.out.println (Arrays.toString (arreglo));
                 break;
             case 2:
                 System.out.println ("Los sismos de mayor magnitud son ");

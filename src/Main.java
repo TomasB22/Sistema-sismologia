@@ -1,16 +1,23 @@
 import java.util.Scanner;
-import java.util.Arrays;
+
 
 public class Main {
     public static void main(String[] args) {
         obtenerDatos ();
-        salir ();
+        int x = -1;
+        do {
+            obtenerDatos ();
+            System.out.println ("Desea hacer algo mas?[1]Si [2]No");
+            x = validarMenu (2);
+        } while (x == 1);
     }
-    public static void obtenerDatos(){
+
+    public static void obtenerDatos() {
         double[][] sismos = new double[7][10];
         mostrarMenu ();
         switchesMenu (sismos);
     }
+
 
     public static void llenarArreglo(double [][] arreglo){
         for (int i=0; i < arreglo.length; i++){
@@ -20,16 +27,7 @@ public class Main {
             }
         }
     }
-    public static double mostrarMayor(double [][] arreglo){
-        double mayor = 0;
-        for (int i=0; i < arreglo.length; i++) {
-            for (int j = 0; j < arreglo[i].length; j++) {
-                if(arreglo[i][j] > mayor){
-                    mayor = arreglo[i][j];
-                }
-            }
-        }return mayor;
-    }
+
     public static void mostrarMenu (){
         System.out.println ("------------------------------------------");
         System.out.println ("1. Ingresar datos");
@@ -46,29 +44,41 @@ public class Main {
                 llenarArreglo (arreglo);
                 break;
             case 2:
-                System.out.println ("Los sismos de mayor magnitud son ");
+                mostrarMayor (arreglo);
                 System.out.println (mostrarMayor (arreglo));
                 break;
             case 3:
                 System.out.println ("Los sismos mayores o iguales a 5.0 son ");
                 break;
             case 4:
-                System.out.println ("");
+                mostrarSMS (arreglo);
                 break;
             case 5:
-                salir ();
                 System.out.println ("Programa finalizado");
         }
     }
-    public static void salir(){
-        int x=-1;
-        do {
-            obtenerDatos ();
-            System.out.println("Desea hacer algo mas?[1]Si [2]No");
-            x = validarMenu (2);
-        }while (x==1);
+    public static double mostrarMayor(double [][] arreglo){
+        double mayor = 0;
+        for (int i=0; i < arreglo.length; i++) {
+            for (int j = 0; j < arreglo[i].length; j++) {
+                if(arreglo[i][j] > mayor){
+                    mayor = arreglo[i][j];
+                }
+            }
+        }return mayor;
     }
-
+    public static void mostrarSMS(double [][] arreglo) {
+        for(int i = 0; i < 10; i++){
+            for(int j = 0; j<7; j++){
+                if(arreglo[i][j]==7 || arreglo[i][j] > 7){
+                    System.out.println ("["+arreglo[i][j]+"]");
+                    System.out.println (" ");
+                    System.out.println ("Alerta! Evacuar zona costera!");
+                    System.out.println (" ");
+                }
+            }
+        }
+    }
     //Metodo para validar int en switches.
     public static int validarMenu ( int x){
         int n = -1;
@@ -87,4 +97,5 @@ public class Main {
         } while (n < 0 || n > x);
         return n;
     }
+
 }
